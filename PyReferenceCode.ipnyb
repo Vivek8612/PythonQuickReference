@@ -1,0 +1,19 @@
+###############################################################################################################
+#####################     How to delete all columns in DataFrame except certain ones?     #####################
+###############################################################################################################
+df.drop(df.columns.difference(['a','b']), 1, inplace=True)
+
+df = df.loc[:, df.columns.intersection(['a','b'])]
+df = df.loc[:, ['a','b']]
+df = df.loc[:,df.columns.isin(['a','b'])]
+f = df.loc[:, ~df.columns.isin(['a','b'])]
+
+df = df[['a','b']]
+df = df.filter(['a', 'b'])
+df = df.filter(like='b_')
+df = df[list('ab')]
+df = pd.DataFrame(data=df.eval('a,b').T,columns=['a','b']) #PS:I do not recommend this method , but still a way to achieve this 
+
+drop_list = ["a","b"]
+df = df.drop(df.columns.difference(drop_list), axis=1)
+
